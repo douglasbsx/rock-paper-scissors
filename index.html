@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock Paper Scissors</title>
+</head>
+<body>
+	<script type="text/javascript">
+		alert("Run the game in the console, type game() to play 5 rounds");
+
+		let playerSelection, computerSelection;
+		let pscore, cscore, round;
+		const plays = ["rock", "paper", "scissors"];
+		
+		function computerPlay() {
+			return plays[Math.floor(Math.random() * plays.length)];
+		}
+
+		function playerPlay() {
+			playerSelection = undefined;
+			while(!plays.includes(playerSelection)) {
+				playerSelection = prompt("What`s your play: Rock, Paper or Scissors?").toLowerCase();
+			}
+			return playerSelection;
+		}
+
+		function playRound(playerSelection, computerSelection) {
+			round++;
+
+			console.log(`== Round ${round} ==`);
+			console.log(`Player chose: ${playerSelection}`);
+			console.log(`Computer chose: ${computerSelection}`);
+
+			if (playerSelection == computerSelection) {
+				console.log("Round DRAW, no points award");
+				return;
+			}
+
+			if (playerSelection == "rock") {
+				if(computerSelection == "paper") {
+					console.log("Paper beats Rock, Computer WIN");
+					cscore++;
+					return;
+				} else {
+					console.log("Rock beats Scissors, Player WIN");
+					pscore++;
+					return;
+				}
+			} else if(playerSelection == "paper") {
+				if(computerSelection == "rock") {
+					console.log("Paper beats Rock, Player WIN");
+					pscore++;
+					return;
+				} else {
+					console.log("Scissors beats Paper, Computer WIN");
+					cscore++;
+					return;
+				}
+			} else if(computerSelection == "rock") {
+					console.log("Rock beats Scissors, Computer WIN");
+					cscore++;
+					return;
+			} else {
+				console.log("Scissors beats Paper, Player WIN");
+				pscore++;
+				return;
+			}
+		}
+
+		function game() {
+			pscore = 0;
+			cscore = 0;
+			round = 0;
+
+			while(round < 5) {
+				playRound(playerPlay(), computerPlay());
+			}
+
+			console.log("== Game Results ==");
+			console.log(`Player Score: ${pscore}`);
+			console.log(`Computer Score: ${cscore}`);
+			
+			if (pscore > cscore) {
+				console.log("Player WINS the game!");
+			} else if(cscore > pscore) {
+				console.log("Computer WINS the game!");
+			} else {
+				console.log("Game DRAW!");
+			}
+
+		}
+
+
+	</script>
+
+</body>
+</html>
